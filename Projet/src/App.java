@@ -44,7 +44,8 @@ public class App extends PApplet {
 	public void draw() {
 		image(back, 0, 0, windowWidth, windowHeight);
 		lab.draw(caseLab, imgPerso);
-		lab.keyPressed();
+		if (keyPressed)
+			lab.keyPressed();
 	}
 
 	public static void main(String[] args) {
