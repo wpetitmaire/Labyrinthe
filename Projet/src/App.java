@@ -15,7 +15,7 @@ public class App extends PApplet {
 	 */
 	private static final long serialVersionUID = 1L;
 	int windowWidth, windowHeight;
-	String filePath = "lab2.txt";
+	String filePath = "niveaux\\lab.txt";
 	Scanner scanner;
 	PImage back, caseLab, imgPerso;
 

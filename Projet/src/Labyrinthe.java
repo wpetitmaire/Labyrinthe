@@ -21,7 +21,7 @@ public class Labyrinthe extends PApplet {
 	public void load() {
 		Scanner scanner = null;
 		try {
-			scanner = new Scanner(new File("lab2.txt"));
+			scanner = new Scanner(new File("niveaux\\lab.txt"));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
