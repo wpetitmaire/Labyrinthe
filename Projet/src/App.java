@@ -34,9 +34,9 @@ public class App extends PApplet {
 		windowHeight = scanner.nextInt() * 22 + 50;
 		lab.load();
 
-		back = loadImage("http://www.lemog.fr/lemog_textures/albums/3dtextures/toiture/ardoises/01_noires.jpg");
-		caseLab = loadImage("case.jpg");
-		imgPerso = loadImage("http://www.victoriagame.fr/imgPAINTS/10-gnaris-green-small.png");
+		back = loadImage("images\\back.jpg");
+		caseLab = loadImage("images\\case.jpg");
+		imgPerso = loadImage("images\\perso.png");
 		size(windowWidth, windowHeight);
 
 	}
