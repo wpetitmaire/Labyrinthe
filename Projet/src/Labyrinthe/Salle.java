@@ -1,3 +1,5 @@
+package Labyrinthe;
+
 import processing.core.PApplet;
 import processing.core.PImage;
 
