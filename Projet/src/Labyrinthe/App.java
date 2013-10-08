@@ -7,20 +7,13 @@ import java.util.Scanner;
 import processing.core.PApplet;
 import processing.core.PImage;
 
-// lire fichier texte : String[] lignes = load String("lab.txt");
-// Pour découper chaîne des espaces : split
-
 public class App extends PApplet {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	int windowWidth, windowHeight;
 	String filePath = "niveaux\\lab.txt";
 	Scanner scanner;
 	PImage back, caseLab, imgPerso;
-
 	Labyrinthe lab = new Labyrinthe(this);
 
 	public void setup() {
@@ -28,26 +21,37 @@ public class App extends PApplet {
 		try {
 			scanner = new Scanner(new File(filePath));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		windowWidth = scanner.nextInt() * 22 + 50;
-		windowHeight = scanner.nextInt() * 22 + 50;
+		// Récupération de la taille de la fenêtre
+		windowWidth = scanner.nextInt() * Constantes.TAILLE_SALLE + Constantes.DECALAGE_FENETRE;
+		windowHeight = scanner.nextInt() * Constantes.TAILLE_SALLE+ Constantes.DECALAGE_FENETRE;
+		// Chargement du labyrinthe dans une collection
 		lab.load();
 
+		// Chargement des différentes images
 		back = loadImage("images\\back.jpg");
 		caseLab = loadImage("images\\case.jpg");
 		imgPerso = loadImage("images\\perso.png");
 		size(windowWidth, windowHeight);
-
 	}
 
 	public void draw() {
+		// Dessin du backgound et du labyrinthe
 		image(back, 0, 0, windowWidth, windowHeight);
 		lab.draw(caseLab, imgPerso);
-		if (keyPressed)
+
+		if (keyPressed == true)
 			lab.keyPressed();
+
+		// Si le personnage a atteint l'arrivéé, on affiche un message
+		if (lab.perso.getSalleCourante().x == lab.sortie.x
+				&& lab.perso.getSalleCourante().y == lab.sortie.y) {
+			textSize(40);
+			text("Bravo !", windowWidth / 2, windowHeight / 2);
+			fill(255, 255, 255);
+		}
 	}
 
 	public static void main(String[] args) {
