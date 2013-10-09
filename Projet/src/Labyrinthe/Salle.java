@@ -28,11 +28,13 @@ public class Salle {
 	public void draw(PImage i) {
 		dessin.tint(255, 255, 255, 255);
 		
-		// On colorie de faÃ§on diffÃ©rente l'entrÃ©e et la sortie
+		// On colorie de façon différente l'entrée et la sortie
 		if (this.color == Constantes.BLEUE)
 			dessin.tint(0, 0, 255, 255);
 		if (this.color == Constantes.ROUGE)
 			dessin.tint(255, 0, 0, 255);
+		if (this.color == Constantes.PIEGE)
+			dessin.tint(0, 0, 255, 255);
 		
 		dessin.image(i, x*taille, y*taille, taille, taille);
 	}
@@ -58,6 +60,8 @@ public class Salle {
 			dessin.tint(0, 0, 255, opacite);
 		if (this.color == 1)
 			dessin.tint(255, 0, 0, opacite);
+		if(this.color == 3)
+			dessin.tint(0,255,0,opacite);
 		
 		dessin.image(i, x*taille, y*taille, taille, taille);
 	}

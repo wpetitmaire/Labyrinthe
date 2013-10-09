@@ -7,22 +7,19 @@ import java.util.Scanner;
 import processing.core.PApplet;
 import processing.core.PImage;
 
-
 public class Labyrinthe extends PApplet{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	ArrayList<Salle> al = new ArrayList<Salle>();
 	PApplet dessin;
-	Salle entree, sortie;
+	Salle entree, sortie, piege, piege2, piege3, piege4, piege5; 
+	int nbpiege;
 	Personnage perso;
 	
-	Labyrinthe(PApplet ap) {
+	Labyrinthe(PApplet ap, int piege) {
 		dessin = ap;
+		nbpiege = piege;
 	}
-	
 	
 	public void load() {
 		Scanner scanner = null;
@@ -35,14 +32,36 @@ public class Labyrinthe extends PApplet{
 		
 		// Lecture et stockage de l'entrée et de la sortie
 		scanner.nextLine();
-		entree = new Salle(scanner.nextInt(), scanner.nextInt(), Constantes.BLEUE, dessin);
+		entree = new Salle(1, 1, Constantes.BLEUE, dessin);
 		scanner.nextLine();
 		sortie = new Salle(scanner.nextInt(), scanner.nextInt(), Constantes.ROUGE, dessin);
+		scanner.nextLine();
+		piege = new Salle(scanner.nextInt(), scanner.nextInt(), Constantes.PIEGE, dessin);
+		scanner.nextLine();
+		piege2 = new Salle(scanner.nextInt(), scanner.nextInt(), Constantes.PIEGE, dessin);
+		scanner.nextLine();
+		piege3 = new Salle(scanner.nextInt(), scanner.nextInt(), Constantes.PIEGE, dessin);
+		scanner.nextLine();
+		piege4 = new Salle(scanner.nextInt(), scanner.nextInt(), Constantes.PIEGE, dessin);
+		scanner.nextLine();
+		piege5 = new Salle(scanner.nextInt(), scanner.nextInt(), Constantes.PIEGE, dessin);
+		
 		al.add(entree);
 		al.add(sortie);
+		al.add(piege);
+		al.add(piege2);
+		al.add(piege3);
+		al.add(piege4);
+		al.add(piege5);
+		
+		/*for(int i=0; i<=nbpiege; i++){
+			scanner.nextLine();
+			Salle tmp = new Salle(scanner.nextInt(), scanner.nextInt(), Constantes.PIEGE, dessin);
+			al.add(tmp);
+		}*/
 		
 		// On initialise le personnage à l'entrée
-		perso = new Personnage(dessin, this.entree);
+		perso = new Personnage(dessin, this.entree, Constantes.PTS_VIE);
 
 		// Lecture du reste du fichier et stockage des valeurs dans une collection
 		while (scanner.hasNextInt())
@@ -52,7 +71,6 @@ public class Labyrinthe extends PApplet{
 			scanner.nextLine();
 		}
 	}
-	
 	
 	public void draw(PImage img, PImage imgPerso) {
 		for (Salle c : al) {
@@ -89,11 +107,9 @@ public class Labyrinthe extends PApplet{
 			}
 		}
 	}	
-
 	
 	public static void main(String[] args) {
 		
-
 	}
 
 }

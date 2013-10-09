@@ -12,11 +12,18 @@ public class Constantes {
 	final static int BLEUE = 0;
 	final static int ROUGE = 1;
 	final static int BLANCHE = 2;
+	final static int PIEGE = 3;
 	
 	// Taille des salles
 	final static int TAILLE_SALLE = 22;
 	
 	// Décalage pour la taille de la fenêtre
 	final static int DECALAGE_FENETRE = 50;
+	
+	// Constantes personnage
+	final static int PTS_VIE = 100;
+	
+	// Constantes labyrinthe
+	final static int NB_PIEGE = 5;
 	
 }
