@@ -9,20 +9,31 @@ public class Salle {
 	int y;
 	int color;
 	int taille = Constantes.TAILLE_SALLE;
+	Boolean piege;
 	PApplet dessin;
 
-	Salle(int abs, int ord, int col, PApplet ap) {
+	/*Salle(int abs, int ord, int col, PApplet ap, Boolean _piege) {
 		this.x = abs;
 		this.y = ord;
 		this.color = col;
 		dessin = ap;
-	}
+		this.piege = _piege;
+	}*/
 	
 	Salle(Salle s) {
 		this.x = s.x;
 		this.y = s.y;
 		this.color = s.color;
 		this.dessin = s.dessin;
+	}
+
+	public Salle(int abs, int ord, int col, PApplet ap, boolean _piege) {
+		// TODO Auto-generated constructor stub
+		this.x = abs;
+		this.y = ord;
+		this.color = col;
+		dessin = ap;
+		this.piege = _piege;
 	}
 
 	public void draw(PImage i) {

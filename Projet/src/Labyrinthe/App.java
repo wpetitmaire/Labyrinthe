@@ -1,9 +1,9 @@
 package Labyrinthe;
 
 import java.io.File;
-
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -52,6 +52,10 @@ public class App extends PApplet {
 			text("Bravo !", windowWidth / 2, windowHeight / 2);
 			fill(255, 255, 255);
 		}
+		
+		/*if(lab.perso.getSalleCourante().piege==true){
+			
+		}*/
 	}
 
 	public static void main(String[] args) {
