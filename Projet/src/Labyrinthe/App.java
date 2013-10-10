@@ -11,7 +11,7 @@ public class App extends PApplet {
 
 	private static final long serialVersionUID = 1L;
 	int windowWidth, windowHeight;
-	String filePath = "niveaux\\lab.txt";
+	String filePath = "niveaux/lab.txt";
 	Scanner scanner;
 	PImage back, caseLab, imgPerso;
 	Labyrinthe lab = new Labyrinthe(this, Constantes.NB_PIEGE);
@@ -24,16 +24,16 @@ public class App extends PApplet {
 			e.printStackTrace();
 		}
 
-		// Récupération de la taille de la fenÃªtre
+		// Rï¿½cupï¿½ration de la taille de la fenÃªtre
 		windowWidth = scanner.nextInt() * Constantes.TAILLE_SALLE + Constantes.DECALAGE_FENETRE;
 		windowHeight = scanner.nextInt() * Constantes.TAILLE_SALLE+ Constantes.DECALAGE_FENETRE;
 		// Chargement du labyrinthe dans une collection
 		lab.load();
 
 		// Chargement des diffÃ©rentes images
-		back = loadImage("images\\back.jpg");
-		caseLab = loadImage("images\\case.jpg");
-		imgPerso = loadImage("images\\perso.png");
+		back = loadImage("images/back.jpg");
+		caseLab = loadImage("images/case.jpg");
+		imgPerso = loadImage("images/perso.png");
 		size(windowWidth, windowHeight);
 	}
 
@@ -45,7 +45,7 @@ public class App extends PApplet {
 		if (keyPressed == true)
 			lab.keyPressed();
 
-		// Si le personnage a atteint l'arrivée, on affiche un message
+		// Si le personnage a atteint l'arrivï¿½e, on affiche un message
 		if (lab.perso.getSalleCourante().x == lab.sortie.x
 				&& lab.perso.getSalleCourante().y == lab.sortie.y) {
 			textSize(40);

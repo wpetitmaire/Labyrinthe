@@ -25,7 +25,7 @@ public class Labyrinthe extends PApplet{
 	public void load() {
 		Scanner scanner = null;
 		try {
-			scanner = new Scanner(new File("niveaux\\lab.txt"));
+			scanner = new Scanner(new File("niveaux/lab.txt"));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -41,7 +41,7 @@ public class Labyrinthe extends PApplet{
 		al.add(entree);
 		al.add(sortie);
 		
-		// Chargement des salles piégés
+		// Chargement des salles piï¿½gï¿½s
 		while (scanner.hasNextInt() && cpt < 5 )
 		{
 			Salle tmp = new Salle(scanner.nextInt(), scanner.nextInt(), Constantes.PIEGE, dessin, true);
@@ -50,7 +50,7 @@ public class Labyrinthe extends PApplet{
 			cpt++;
 		}
 		
-		// On initialise le personnage à l'entrée
+		// On initialise le personnage ï¿½l'entrï¿½e
 		perso = new Personnage(dessin, this.entree, Constantes.PTS_VIE);
 
 		// Lecture du reste du fichier et stockage des valeurs dans une collection
@@ -73,7 +73,7 @@ public class Labyrinthe extends PApplet{
 	public void keyPressed() {
 		Salle futur = new Salle(-1, -1, -1, dessin, false);
 		
-		// On crée la salle oÃ¹ le personnage souhaite aller
+		// On crï¿½e la salle oÃ¹ le personnage souhaite aller
 		switch(dessin.keyCode)
 		{
 			case UP:
