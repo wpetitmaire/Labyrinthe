@@ -143,6 +143,11 @@ public class App extends PApplet {
 		return false;	
 	}
 	
+	
+	public Labyrinthe getLab() {
+		return lab;
+	}
+	
 	public static void main(String[] args) {
 		PApplet.main("Application");
 	}

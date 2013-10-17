@@ -31,6 +31,7 @@ public class Salle {
 	}
 	
 	
+	
 	public void drawEclairage(PImage i, Salle s) {
 		// On calcule la distance euclidienne entre la case à dessiner et la case du personnage
 		float d = this.distance(s);
