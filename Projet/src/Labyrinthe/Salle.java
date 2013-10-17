@@ -1,5 +1,7 @@
 package Labyrinthe;
 
+import java.util.Random;
+
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -9,45 +11,23 @@ public class Salle {
 	int y;
 	int color;
 	int taille = Constantes.TAILLE_SALLE;
-	Boolean piege;
 	PApplet dessin;
+	boolean piege;
 
-	/*Salle(int abs, int ord, int col, PApplet ap, Boolean _piege) {
+	Salle(int abs, int ord, int col, PApplet ap, boolean p) {
 		this.x = abs;
 		this.y = ord;
 		this.color = col;
 		dessin = ap;
-		this.piege = _piege;
-	}*/
+		this.piege = p;
+	}
 	
 	Salle(Salle s) {
 		this.x = s.x;
 		this.y = s.y;
 		this.color = s.color;
 		this.dessin = s.dessin;
-	}
-
-	public Salle(int abs, int ord, int col, PApplet ap, boolean _piege) {
-		// TODO Auto-generated constructor stub
-		this.x = abs;
-		this.y = ord;
-		this.color = col;
-		dessin = ap;
-		this.piege = _piege;
-	}
-
-	public void draw(PImage i) {
-		dessin.tint(255, 255, 255, 255);
-		
-		// On colorie de façon différente l'entrée et la sortie
-		if (this.color == Constantes.BLEUE)
-			dessin.tint(0, 0, 255, 255);
-		if (this.color == Constantes.ROUGE)
-			dessin.tint(255, 0, 0, 255);
-		if (this.color == Constantes.PIEGE)
-			dessin.tint(0, 0, 255, 255);
-		
-		dessin.image(i, x*taille, y*taille, taille, taille);
+		this.piege = s.piege;
 	}
 	
 	
@@ -67,12 +47,15 @@ public class Salle {
 		dessin.tint(255, 255, 255, opacite);
 		
 		// On colorie de faÃ§on diffÃ©rente l'entrÃ©e et la sortie
-		if (this.color == 0)
+		if (this.color == Constantes.BLEUE)
 			dessin.tint(0, 0, 255, opacite);
-		if (this.color == 1)
+		if (this.color == Constantes.VERTE)
+			dessin.tint(0, 255, 0, opacite);
+		
+		if (this.piege ==true) {
 			dessin.tint(255, 0, 0, opacite);
-		if(this.color == 3)
-			dessin.tint(0,255,0,opacite);
+			//System.out.print("Salle piege !");
+		}
 		
 		dessin.image(i, x*taille, y*taille, taille, taille);
 	}
@@ -88,6 +71,15 @@ public class Salle {
 			return (int) ( Math.sqrt(d) );
 		else
 			return -1;
+	}
+	
+	public void mettrePiege() {
+		Random r = new Random();
+		int valeur = 1 + r.nextInt(Constantes.PROBA_PIEGE - 1);
+		if (valeur == Constantes.PIEGE)
+			this.piege = true;
+		else
+			this.piege = false;
 	}
 
 }

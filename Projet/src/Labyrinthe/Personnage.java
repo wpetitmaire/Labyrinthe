@@ -6,13 +6,13 @@ import processing.core.PImage;
 
 public class Personnage {
 	Salle salleCourante;
+	int nbVies;
 	PApplet dessin;
-	int vie;
 	
-	Personnage(PApplet d, Salle s, int ptsVie) {
+	Personnage(PApplet d, Salle s) {
 		this.dessin = d;
 		this.salleCourante = new Salle(s);
-		vie = ptsVie;
+		this.nbVies = Constantes.VIES_DEPART;
 	}
 	
 	public void draw(PImage i) {
@@ -25,7 +25,9 @@ public class Personnage {
 	}
 	
 	public void setSalleCourante(Salle s) {
-		this.salleCourante = s;
+		this.salleCourante.x = s.x;
+		this.salleCourante.y = s.y;
+		this.salleCourante.piege = s.piege;
 	}
 
 

@@ -10,9 +10,8 @@ public class Constantes {
 	
 	// Couleur des salles
 	final static int BLEUE = 0;
-	final static int ROUGE = 1;
+	final static int VERTE = 1;
 	final static int BLANCHE = 2;
-	final static int PIEGE = 3;
 	
 	// Taille des salles
 	final static int TAILLE_SALLE = 22;
@@ -20,10 +19,14 @@ public class Constantes {
 	// Décalage pour la taille de la fenêtre
 	final static int DECALAGE_FENETRE = 50;
 	
-	// Constantes personnage
-	final static int PTS_VIE = 100;
 	
-	// Constantes labyrinthe
-	final static int NB_PIEGE = 5;
+	// Constantes pour les salles piégées
+	final static int PROBA_PIEGE = 150;
+	final static int PIEGE = 1;
 	
+	// Constantes pour le joueur
+	final static int VIES_DEPART = 3;
+	
+	// Constantes pour les vies
+	final static int DECALAGE_IMG_VIES = 30;
 }
