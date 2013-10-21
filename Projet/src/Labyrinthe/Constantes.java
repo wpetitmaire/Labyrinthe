@@ -12,6 +12,8 @@ public class Constantes {
 	final static int BLEUE = 0;
 	final static int VERTE = 1;
 	final static int BLANCHE = 2;
+	final static int ROUGE = 3;
+	final static int VIOLET = 4;
 	
 	// Taille des salles
 	final static int TAILLE_SALLE = 22;
@@ -21,8 +23,9 @@ public class Constantes {
 	
 	
 	// Constantes pour les salles piégées
-	final static int PROBA_PIEGE = 150;
-	final static int PIEGE = 1;
+	final static int PROBA_PIEGE = 100;
+	final static int PIEGE_EXPLOSION = 1;
+	final static int PIEGE_TELEPORTEUR = 2;
 	
 	// Constantes pour le joueur
 	final static int VIES_DEPART = 3;

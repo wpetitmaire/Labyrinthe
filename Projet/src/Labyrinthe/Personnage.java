@@ -27,7 +27,7 @@ public class Personnage {
 	public void setSalleCourante(Salle s) {
 		this.salleCourante.x = s.x;
 		this.salleCourante.y = s.y;
-		this.salleCourante.piege = s.piege;
+		this.salleCourante.color = s.color;
 	}
 
 

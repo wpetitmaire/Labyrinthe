@@ -12,14 +12,19 @@ public class Salle {
 	int color;
 	int taille = Constantes.TAILLE_SALLE;
 	PApplet dessin;
-	boolean piege;
 
-	Salle(int abs, int ord, int col, PApplet ap, boolean p) {
+	Salle(int abs, int ord, int col, PApplet ap) {
 		this.x = abs;
 		this.y = ord;
 		this.color = col;
 		dessin = ap;
-		this.piege = p;
+
+	}
+	
+	Salle() {
+		this.x = 0;
+		this.y = 0;
+		this.color = Constantes.BLANCHE; 
 	}
 	
 	Salle(Salle s) {
@@ -27,12 +32,11 @@ public class Salle {
 		this.y = s.y;
 		this.color = s.color;
 		this.dessin = s.dessin;
-		this.piege = s.piege;
 	}
 	
 	
 	
-	public void drawEclairage(PImage i, Salle s) {
+	public void draw(PImage i, Salle s) {
 		// On calcule la distance euclidienne entre la case à dessiner et la case du personnage
 		float d = this.distance(s);
 		int opacite=255;
@@ -53,13 +57,11 @@ public class Salle {
 		if (this.color == Constantes.VERTE)
 			dessin.tint(0, 255, 0, opacite);
 		
-		if (this.piege ==true) {
-			dessin.tint(255, 0, 0, opacite);
-			//System.out.print("Salle piege !");
-		}
-		
 		dessin.image(i, x*taille, y*taille, taille, taille);
 	}
+		
+		
+
 
 	
 	public static void main(String[] args) {
@@ -74,13 +76,23 @@ public class Salle {
 			return -1;
 	}
 	
-	public void mettrePiege() {
+	public boolean mettrePiegeExplosion() {
 		Random r = new Random();
 		int valeur = 1 + r.nextInt(Constantes.PROBA_PIEGE - 1);
-		if (valeur == Constantes.PIEGE)
-			this.piege = true;
-		else
-			this.piege = false;
+		if (valeur == Constantes.PIEGE_EXPLOSION)
+			return true;
+		
+		return false;
+	}
+	
+	public boolean mettrePiegeTeleporteur() {
+		Random r = new Random();
+		int valeur = 1 + r.nextInt(Constantes.PROBA_PIEGE - 1);
+		if (valeur == Constantes.PIEGE_TELEPORTEUR)
+			return true;
+		
+		return false;
 	}
 
 }
+

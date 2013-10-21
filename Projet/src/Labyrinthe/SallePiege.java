@@ -4,12 +4,22 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 public abstract class SallePiege extends Salle {
-
-	SallePiege(int abs, int ord, int col, PApplet ap, boolean p) {
-		super(abs, ord, col, ap, p);
+	
+	boolean actif;
+	
+	SallePiege(int abs, int ord, int col, PApplet ap) {
+		super(abs, ord, col, ap);
+		actif = true;
 	}
 	
-	public abstract void effet(Personnage p);
+	SallePiege(Salle s) {
+		this.x = s.x;
+		this.y = s.y;
+		this.color = s.color;
+		this.dessin = s.dessin;
+	}
+	
+	public abstract void effet(Labyrinthe l);
 	
 	public abstract void draw(PImage i, Salle s);
 

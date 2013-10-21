@@ -55,7 +55,7 @@ public class App extends PApplet {
 		lab.al.clear();
 		lab.load();
 		lab.perso.nbVies = Constantes.VIES_DEPART;
-		lab.perso.salleCourante = lab.entree;
+		lab.perso.setSalleCourante(lab.entree);
 	}
 	
 	void controleur() {
@@ -83,18 +83,13 @@ public class App extends PApplet {
 				lab = new Labyrinthe(this, filePath);
 				lab.load();
 				lab.perso.nbVies = Constantes.VIES_DEPART;
-				lab.perso.salleCourante = lab.entree;
+				lab.perso.setSalleCourante(lab.entree);
 			}
 		}
 		
 		// Si la salle est piégée
-		if (lab.perso.getSalleCourante().piege == true) {
-			lab.perso.nbVies--;
-			lab.perso.salleCourante.piege = false;
-			for (Salle s : lab.al) {
-				if (lab.perso.salleCourante.x == s.x && lab.perso.salleCourante.y == s.y)
-					s.piege = false;
-			}
+		if (lab.perso.salleCourante instanceof SallePiege) {
+			( (SallePiege) lab.perso.salleCourante).effet(lab);
 		}
 		
 		// Si le joueur n'a plus de vie
