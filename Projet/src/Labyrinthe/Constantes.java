@@ -32,4 +32,7 @@ public class Constantes {
 	
 	// Constantes pour les vies
 	final static int DECALAGE_IMG_VIES = 30;
+	
+	// Constantes pour les niveaux
+	final static int NIVEAU_MAX = 5;
 }

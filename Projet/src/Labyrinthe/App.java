@@ -74,11 +74,10 @@ public class App extends PApplet {
 				// Passage au niveau suivant
 				lab.al.clear();
 				numeroNiveau++;
-				if (numeroNiveau > 5)
+				if (numeroNiveau > Constantes.NIVEAU_MAX)
 					numeroNiveau = 1;
 				
 				filePath = "ressources/level"+numeroNiveau+".txt";
-				
 				
 				lab = new Labyrinthe(this, filePath);
 				lab.load();
