@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.ListIterator;
+import java.util.Random;
 import java.util.Scanner;
 
 import javax.swing.text.html.HTMLDocument.Iterator;
@@ -20,6 +21,7 @@ public class Labyrinthe extends PApplet{
 	Salle entree, sortie;
 	Personnage perso;
 	String fichier;
+	Monstre monster;
 	
 	Labyrinthe(PApplet ap, String f) {
 		dessin = ap;
@@ -46,7 +48,8 @@ public class Labyrinthe extends PApplet{
 		
 		// On initialise le personnage à l'entrée
 		perso = new Personnage(dessin, this.entree);
-
+		
+		
 		// Lecture du reste du fichier et stockage des valeurs dans une collection
 		while (scanner.hasNextInt())
 		{
@@ -60,15 +63,22 @@ public class Labyrinthe extends PApplet{
 			al.add(c);
 			scanner.nextLine();
 		}
+		
+		// Initialisation du monstre
+		Random r = new Random();
+		int valeur = 1 + r.nextInt(al.size() - 1);
+		monster = new Monstre(trouverSalle(valeur), dessin);
+
 	}
 	
 	
 	
-	public void draw(PImage img, PImage imgPerso) {
+	public void draw(PImage img, PImage imgPerso, PImage imgMonstre) {
 		for (Salle c : al) {
 			c.draw(img, perso.getSalleCourante());
 		}
 		perso.draw(imgPerso);
+		monster.draw(imgMonstre, perso.salleCourante);
 	}
 	
 	public void keyPressed() {

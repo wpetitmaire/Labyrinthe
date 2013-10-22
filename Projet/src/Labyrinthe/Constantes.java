@@ -1,7 +1,7 @@
 package Labyrinthe;
 
 
-public class Constantes {
+public interface Constantes {
 	
 	// Constantes pour la visibilité des salles
 	final static int ADJACENTE = 3;
@@ -35,4 +35,15 @@ public class Constantes {
 	
 	// Constantes pour les niveaux
 	final static int NIVEAU_MAX = 5;
+	
+	// Constantes pour les monstres
+	final static int PROBA_DEPLACEMENT = 10;
+	final static int DEPLACEMENT = 2;
+	final static int MAX_DIRECTION = 5;
+	final static int BAS = 1;
+	final static int HAUT = 2;
+	final static int DROITE = 3;
+
+
+
 }

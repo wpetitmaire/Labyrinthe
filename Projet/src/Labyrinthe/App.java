@@ -14,11 +14,10 @@ public class App extends PApplet {
 	int windowWidth, windowHeight;
 	String filePath;
 	Scanner scanner;
-	PImage back, caseLab, imgPerso, vie, vie2, vie3;
-	Labyrinthe lab; 
+	PImage back, caseLab, imgPerso, vie, vie2, vie3, imgMonstre;
+	Labyrinthe lab;
 	boolean finDePartie;
 	int numeroNiveau=1;
-
 	
 	public void setup() {
 		
@@ -46,6 +45,7 @@ public class App extends PApplet {
 		vie = loadImage("ressources/vie.png");
 		vie2 = vie;
 		vie3 = vie;
+		imgMonstre = loadImage("ressources/triangle.png");
 		size(windowWidth, windowHeight);
 	}
 	
@@ -62,6 +62,7 @@ public class App extends PApplet {
 		// Appel de la fonction gérant les déplacements du personnage
 		if (keyPressed == true)
 			lab.keyPressed();
+		lab.monster.deplacer(lab);
 		
 		// Si le personnage a atteint l'arrivéé, on affiche un message
 		if (lab.perso.getSalleCourante().x == lab.sortie.x && lab.perso.getSalleCourante().y == lab.sortie.y) {
@@ -91,6 +92,10 @@ public class App extends PApplet {
 			( (SallePiege) lab.perso.salleCourante).effet(lab);
 		}
 		
+		// Si le joueur rencontre le monstre
+		if (lab.perso.salleCourante.x == lab.monster.salleActuelle.x && lab.perso.salleCourante.y == lab.monster.salleActuelle.y)
+			lab.monster.effetCollision(lab);
+		
 		// Si le joueur n'a plus de vie
 		if (lab.perso.nbVies <=0) {
 			redemarrage();
@@ -99,10 +104,13 @@ public class App extends PApplet {
 	}
 	
 	public void draw() {
+		
+
+		
 		tint(255,255,255,255);
 		// Dessin du backgound et du labyrinthe
 		image(back, 0, 0, windowWidth, windowHeight);
-		lab.draw(caseLab, imgPerso);
+		lab.draw(caseLab, imgPerso, imgMonstre);
 		
 		controleur();
 		
@@ -120,9 +128,10 @@ public class App extends PApplet {
 
 		// Dessin du game over si le joueur a perdu
 		if (finDePartie) {
-			image(back, 0, 0, windowWidth, windowHeight);
-			textSize(35);
+			background(0);
+			textSize(45);
 			text("Game over ... \n", windowWidth/3, windowHeight/3);
+			textSize(35);
 			text("Appuyer sur Entree pour continuer", windowWidth/6, windowHeight/2);
 			// On vérifie si l'utilisateur presse Entrée
 			if (touchePressee())

@@ -22,7 +22,7 @@ public class SalleTeleporteur extends SallePiege{
 		if (actif) {
 			// On tire un nombre aléatoire
 			Random r = new Random();
-			int valeur = 1 + r.nextInt(Constantes.PROBA_PIEGE - 1);
+			int valeur = 1 + r.nextInt(l.al.size() - 1);
 			
 			// On "sauvegarde" les propriétés de la salle piégée actuelle 
 			SalleTeleporteur sT = new SalleTeleporteur(this);
