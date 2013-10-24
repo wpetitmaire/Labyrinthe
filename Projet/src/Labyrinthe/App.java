@@ -10,19 +10,19 @@ import processing.core.PImage;
 
 @SuppressWarnings("serial")
 public class App extends PApplet {
-
+	
+	etatDuJeu etat;
 	int windowWidth, windowHeight;
 	String filePath;
 	Scanner scanner;
 	PImage back, caseLab, imgPerso, vie, vie2, vie3, imgMonstre;
 	Labyrinthe lab;
-	boolean finDePartie;
-	int numeroNiveau=1;
+	int numeroNiveau;
 	
 	public void setup() {
-		
-		filePath = "ressources/level1.txt";
-		finDePartie = false;
+		etat = etatDuJeu.JEU;
+		numeroNiveau = 1;
+		filePath = "ressources/level"+numeroNiveau+".txt";
 		try {
 			scanner = new Scanner(new File(filePath));
 		} 
@@ -59,87 +59,122 @@ public class App extends PApplet {
 	}
 	
 	void controleur() {
-		// Appel de la fonction gérant les déplacements du personnage
-		if (keyPressed == true)
-			lab.keyPressed();
-		for (Monstre m : lab.listeMonstre)
-			m.deplacer(lab);
-		
-		// Si le personnage a atteint l'arrivéé, on affiche un message
-		if (lab.perso.getSalleCourante().x == lab.sortie.x && lab.perso.getSalleCourante().y == lab.sortie.y) {
-			textSize(40);
-			text("Bravo !", windowWidth/2, windowHeight/3);
-			text("Appuyer sur Entree pour continuer", windowWidth/6, windowHeight/2);
-			fill(255,255,255);
+		switch (etat) {
+		case JEU :
+			// Appel de la fonction gérant les déplacements du personnage
+			if (keyPressed == true)
+				lab.keyPressed();
+			for (Monstre m : lab.listeMonstre)
+				m.deplacer(lab);
 			
+			// Si le personnage a atteint l'arrivée
+			if (lab.perso.getSalleCourante().x == lab.sortie.x && lab.perso.getSalleCourante().y == lab.sortie.y && numeroNiveau<= Constantes.NIVEAU_MAX)
+				etat = etatDuJeu.ARRIVEE;
+			
+			// Si la salle est piégée
+			if (lab.perso.salleCourante instanceof SallePiege) {
+				( (SallePiege) lab.perso.salleCourante).effet(lab);
+			}
+			
+			// Si le joueur rencontre un monstre
+			for (Monstre m : lab.listeMonstre) {
+				if (lab.perso.salleCourante.x == m.salleActuelle.x && lab.perso.salleCourante.y == m.salleActuelle.y)
+					m.effetCollision(lab);
+			}
+			
+			// Si le joueur n'a plus de vie
+			if (lab.perso.nbVies <=0) {
+				redemarrage();
+				etat = etatDuJeu.GAME_OVER;
+			}
+			break ;
+			
+		case ARRIVEE:
 			if (touchePressee()) {
 				// Passage au niveau suivant
 				lab.al.clear();
-				numeroNiveau++;
-				if (numeroNiveau > Constantes.NIVEAU_MAX)
-					numeroNiveau = 1;
+				
+				if (numeroNiveau >= Constantes.NIVEAU_MAX)
+					etat = etatDuJeu.TERMINE;
+				else {
+					etat = etatDuJeu.JEU;
+					numeroNiveau++;
+				}
 				
 				filePath = "ressources/level"+numeroNiveau+".txt";
-				
 				lab = new Labyrinthe(this, filePath);
 				lab.load();
 				lab.perso.nbVies = Constantes.VIES_DEPART;
 				lab.perso.setSalleCourante(lab.entree);
+				
+				
 			}
+			break;
+			
+		case GAME_OVER :
+			if (touchePressee())
+				etat = etatDuJeu.JEU;
+			break;
+			
+		case TERMINE :
+			if (touchePressee())
+				etat = etatDuJeu.JEU;
+			numeroNiveau = 1;
+			break;
 		}
 		
-		// Si la salle est piégée
-		if (lab.perso.salleCourante instanceof SallePiege) {
-			( (SallePiege) lab.perso.salleCourante).effet(lab);
-		}
+			
 		
-		// Si le joueur rencontre un monstre
-		for (Monstre m : lab.listeMonstre) {
-			if (lab.perso.salleCourante.x == m.salleActuelle.x && lab.perso.salleCourante.y == m.salleActuelle.y)
-				m.effetCollision(lab);
-		}
-		
-		// Si le joueur n'a plus de vie
-		if (lab.perso.nbVies <=0) {
-			redemarrage();
-			finDePartie = true;
-		}
 	}
 	
 	public void draw() {
 		
-
-		
-		tint(255,255,255,255);
-		// Dessin du backgound et du labyrinthe
-		image(back, 0, 0, windowWidth, windowHeight);
-		lab.draw(caseLab, imgPerso, imgMonstre);
+		switch(etat) {
+		case JEU :
+			tint(255,255,255,255);
+			// Dessin du backgound et du labyrinthe
+			image(back, 0, 0, windowWidth, windowHeight);
+			lab.draw(caseLab, imgPerso, imgMonstre);
+			
+			// Dessin des vies
+			tint(255, 0, 0, 255);
+			textSize(15);
+			text("Vies : ", 10, 15);
+			if (lab.perso.nbVies>0)
+				image(vie, 15, 18, 20, 20);
+			if (lab.perso.nbVies>1)
+				image(vie2, 15+Constantes.DECALAGE_IMG_VIES, 18, 20, 20);
+			if (lab.perso.nbVies>2)
+				image(vie3, 15 + 2*Constantes.DECALAGE_IMG_VIES, 18, 20, 20);
+			break;
+			
+		case ARRIVEE :
+			background(0);
+			textSize(40);
+			text("Niveau "+numeroNiveau+" fini !\n", windowWidth/2, windowHeight/3);
+			text("Appuyer sur Entree pour continuer", windowWidth/6, windowHeight/2);
+			fill(255,255,255);
+			break;
+			
+		case GAME_OVER :
+			// Dessin du game over si le joueur a perdu
+				background(0);
+				textSize(45);
+				text("Game over ... \n", windowWidth/3, windowHeight/3);
+				textSize(35);
+				text("Appuyer sur Entree pour continuer", windowWidth/6, windowHeight/2);
+			break;
+			
+		case TERMINE :
+			tint(255, 255, 255);
+			textSize(40);
+			text("Vous avez reussi a sortir du labyrinthe !", windowWidth/2, windowHeight/3);
+			text("Recommencer ?", windowWidth/6, windowHeight/2);
+			fill(255,255,255);
+			break;
+		}
 		
 		controleur();
-		
-		
-		// Dessin des vies
-		tint(255, 0, 0, 255);
-		textSize(15);
-		text("Vies : ", 10, 15);
-		if (lab.perso.nbVies>0)
-			image(vie, 15, 18, 20, 20);
-		if (lab.perso.nbVies>1)
-			image(vie2, 15+Constantes.DECALAGE_IMG_VIES, 18, 20, 20);
-		if (lab.perso.nbVies>2)
-			image(vie3, 15 + 2*Constantes.DECALAGE_IMG_VIES, 18, 20, 20);
-
-		// Dessin du game over si le joueur a perdu
-		if (finDePartie) {
-			background(0);
-			textSize(45);
-			text("Game over ... \n", windowWidth/3, windowHeight/3);
-			textSize(35);
-			text("Appuyer sur Entree pour continuer", windowWidth/6, windowHeight/2);
-			// On vérifie si l'utilisateur presse Entrée
-			if (touchePressee())
-				finDePartie = false;
-		}
 	}
 
 	boolean touchePressee() {

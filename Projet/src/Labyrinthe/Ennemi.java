@@ -27,7 +27,7 @@ public abstract class Ennemi {
 		else if (d>=Constantes.ELOIGNEE)
 			opacite = 0;
 		
-		dessin.tint(255,255,255,255);
+		dessin.tint(255,255,255,opacite);
 		dessin.image(img, salleActuelle.x*salleActuelle.taille, salleActuelle.y*salleActuelle.taille, salleActuelle.taille, salleActuelle.taille);
 	}
 	
