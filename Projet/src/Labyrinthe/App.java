@@ -45,7 +45,7 @@ public class App extends PApplet {
 		vie = loadImage("ressources/vie.png");
 		vie2 = vie;
 		vie3 = vie;
-		imgMonstre = loadImage("ressources/triangle.png");
+		imgMonstre = loadImage("ressources/flammes.png");
 		size(windowWidth, windowHeight);
 	}
 	
@@ -62,7 +62,8 @@ public class App extends PApplet {
 		// Appel de la fonction gérant les déplacements du personnage
 		if (keyPressed == true)
 			lab.keyPressed();
-		lab.monster.deplacer(lab);
+		for (Monstre m : lab.listeMonstre)
+			m.deplacer(lab);
 		
 		// Si le personnage a atteint l'arrivéé, on affiche un message
 		if (lab.perso.getSalleCourante().x == lab.sortie.x && lab.perso.getSalleCourante().y == lab.sortie.y) {
@@ -92,9 +93,11 @@ public class App extends PApplet {
 			( (SallePiege) lab.perso.salleCourante).effet(lab);
 		}
 		
-		// Si le joueur rencontre le monstre
-		if (lab.perso.salleCourante.x == lab.monster.salleActuelle.x && lab.perso.salleCourante.y == lab.monster.salleActuelle.y)
-			lab.monster.effetCollision(lab);
+		// Si le joueur rencontre un monstre
+		for (Monstre m : lab.listeMonstre) {
+			if (lab.perso.salleCourante.x == m.salleActuelle.x && lab.perso.salleCourante.y == m.salleActuelle.y)
+				m.effetCollision(lab);
+		}
 		
 		// Si le joueur n'a plus de vie
 		if (lab.perso.nbVies <=0) {

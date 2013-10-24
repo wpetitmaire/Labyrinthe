@@ -17,11 +17,11 @@ import processing.core.PImage;
 public class Labyrinthe extends PApplet{
 
 	ArrayList<Salle> al = new ArrayList<Salle>();
+	ArrayList<Monstre> listeMonstre = new ArrayList<Monstre>();
 	PApplet dessin;
 	Salle entree, sortie;
 	Personnage perso;
 	String fichier;
-	Monstre monster;
 	
 	Labyrinthe(PApplet ap, String f) {
 		dessin = ap;
@@ -64,11 +64,13 @@ public class Labyrinthe extends PApplet{
 			scanner.nextLine();
 		}
 		
-		// Initialisation du monstre
-		Random r = new Random();
-		int valeur = 1 + r.nextInt(al.size() - 1);
-		monster = new Monstre(trouverSalle(valeur), dessin);
-
+		// Initialisation du monstre s'il n'existait pas déjà
+		if (listeMonstre.isEmpty()) {
+			Random r = new Random();
+			int valeur = 1 + r.nextInt(al.size() - 1);
+			Monstre monster = new Monstre(trouverSalle(valeur), dessin);
+			listeMonstre.add(monster);
+		}
 	}
 	
 	
@@ -78,7 +80,9 @@ public class Labyrinthe extends PApplet{
 			c.draw(img, perso.getSalleCourante());
 		}
 		perso.draw(imgPerso);
-		monster.draw(imgMonstre, perso.salleCourante);
+		
+		for(Monstre m : listeMonstre)
+			m.draw(imgMonstre, perso.salleCourante);
 	}
 	
 	public void keyPressed() {
@@ -120,15 +124,7 @@ public class Labyrinthe extends PApplet{
 	
 	public Salle trouverSalle(int alea) {
 		// Renvoie la la n-ième salle du labyrinthe, où n est un nombre aléatoire passé en paramètre
-		int cpt = 0;
-		for (Salle s : al) {
-			if (cpt == alea)
-				return s;
-			else
-				cpt++;
-		}
-		// Si la salle n'existe pas (elle n'est pas dans la collection de salle), on téléporte le joueur à l'entrée
-		return this.entree;
+		return al.get(alea);
 	}
 	
 	public void supprimerPiege(Salle s) {

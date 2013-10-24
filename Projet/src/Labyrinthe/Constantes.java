@@ -16,10 +16,10 @@ public interface Constantes {
 	final static int VIOLET = 4;
 	
 	// Taille des salles
-	final static int TAILLE_SALLE = 22;
+	final static int TAILLE_SALLE = 10;
 	
 	// Décalage pour la taille de la fenêtre
-	final static int DECALAGE_FENETRE = 50;
+	final static int DECALAGE_FENETRE = 30;
 	
 	
 	// Constantes pour les salles piégées

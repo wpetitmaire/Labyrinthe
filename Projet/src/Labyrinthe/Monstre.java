@@ -15,6 +15,12 @@ public class Monstre extends Ennemi{
 	public void effetCollision(Labyrinthe l) {
 		l.perso.nbVies = 0;
 		l.perso.setSalleCourante(l.entree);
+		/*l.listeMonstre.clear();
+		
+		Random r = new Random();
+		int valeur = 1 + r.nextInt(l.al.size() - 1);
+		Monstre monster = new Monstre(l.trouverSalle(valeur), dessin);
+		l.listeMonstre.add(monster);*/
 	}
 	
 	public void deplacer(Labyrinthe l) {
