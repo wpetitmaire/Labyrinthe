@@ -64,7 +64,7 @@ public class Labyrinthe extends PApplet{
 			scanner.nextLine();
 		}
 		
-		// Initialisation du monstre s'il n'existait pas déjà
+		// Initialisation du monstre s'il n'existait pas
 		if (listeMonstre.isEmpty()) {
 			Random r = new Random();
 			int valeur = 1 + r.nextInt(al.size() - 1);
