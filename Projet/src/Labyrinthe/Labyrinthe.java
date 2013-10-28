@@ -3,11 +3,8 @@ package Labyrinthe;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.ListIterator;
 import java.util.Random;
 import java.util.Scanner;
-
-import javax.swing.text.html.HTMLDocument.Iterator;
 
 import processing.core.PApplet;
 import processing.core.PImage;
@@ -142,11 +139,6 @@ public class Labyrinthe extends PApplet{
 		Salle nouvelleSalle = new Salle(s.x, s.y, Constantes.BLANCHE, dessin);
 		al.add(nouvelleSalle);
 		
-	}
-
-	
-	public static void main(String[] args) {
-
 	}
 
 }

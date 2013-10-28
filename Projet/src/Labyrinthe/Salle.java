@@ -7,13 +7,13 @@ import processing.core.PImage;
 
 public class Salle {
 
-	int x;
-	int y;
+	public int x;
+	public int y;
 	int color;
 	int taille = Constantes.TAILLE_SALLE;
 	PApplet dessin;
 
-	Salle(int abs, int ord, int col, PApplet ap) {
+	public Salle(int abs, int ord, int col, PApplet ap) {
 		this.x = abs;
 		this.y = ord;
 		this.color = col;
