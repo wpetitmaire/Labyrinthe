@@ -7,6 +7,11 @@ import java.util.Scanner;
 import processing.core.PApplet;
 import processing.core.PImage;
 
+/**
+ * @author wpeti_000
+ * 
+ *         Cette classe définie notre application.
+ */
 @SuppressWarnings("serial")
 public class App extends PApplet {
 
@@ -19,11 +24,9 @@ public class App extends PApplet {
 	int numeroNiveau;
 
 	/**
-	 * @author Petit-Maire & Bailly
-	 * 
-	 *         La méthode setup() initialise la fenêtre du jeu : la dimension de
-	 *         la fenêtre, les images, les niveaux. On initialise le labyrinthe
-	 *         ainsi que les vies du joueur.
+	 * La méthode setup() initialise la fenêtre du jeu : la dimension de la
+	 * fenêtre, les images, les niveaux. On initialise le labyrinthe ainsi que
+	 * les vies du joueur.
 	 * 
 	 * @return Aucun.
 	 */
@@ -61,12 +64,8 @@ public class App extends PApplet {
 	}
 
 	/**
-	 * @author Petit-Maire & Bailly
-	 * 
-	 *         Efface le contenu du labyrinthe (Salles, pièges...) pour un
-	 *         niveau, et le remplace par celui du niveau suivant.
-	 * 
-	 * @return Aucun.
+	 * Efface le contenu du labyrinthe (Salles, pièges...) pour un niveau, et le
+	 * remplace par celui du niveau suivant.
 	 */
 
 	void redemarrage() {
@@ -77,14 +76,9 @@ public class App extends PApplet {
 	}
 
 	/**
-	 * @author Petit-Maire & Bailly
-	 * 
-	 *         La méthode controleur() regroupe toutes les actions qui modifient
-	 *         les états du jeu : Gestion du GameOver (Le joueur n'a plus de vie
-	 *         ou a touché un monstre), Gestion du changement de niveau et
-	 *         Gestion de la fin du jeu
-	 * 
-	 * @return Aucun.
+	 * La méthode controleur() regroupe toutes les actions qui modifient les
+	 * états du jeu : Gestion du GameOver (Le joueur n'a plus de vie ou a touché
+	 * un monstre), Gestion du changement de niveau et Gestion de la fin du jeu
 	 */
 
 	void controleur() {
@@ -155,11 +149,7 @@ public class App extends PApplet {
 	}
 
 	/**
-	 * @author Petit-Maire & Bailly
-	 * 
-	 *         Gestion de l'affichage du jeu : (images, texte,..)
-	 * 
-	 * @return Aucun.
+	 * Gestion de l'affichage du jeu : (images, texte,..)
 	 */
 
 	public void draw() {
@@ -212,10 +202,8 @@ public class App extends PApplet {
 	}
 
 	/**
-	 * @author Petit-Maire & Bailly
-	 * 
-	 *         Cette méthode récupère la touche pressé par le joueur et vérifie
-	 *         si celle-ci correspond à la touche entrée
+	 * Cette méthode récupère la touche pressé par le joueur et vérifie si
+	 * celle-ci correspond à la touche entrée
 	 * 
 	 * @return Vrai si c'est la bonne touche, Faux sinon
 	 */
@@ -228,9 +216,7 @@ public class App extends PApplet {
 	}
 
 	/**
-	 * @author Petit-Maire & Bailly
-	 * 
-	 *         Getter de la classe Labyrinthe
+	 * Getter de la classe Labyrinthe
 	 * 
 	 * @return le labyrinthe
 	 */
