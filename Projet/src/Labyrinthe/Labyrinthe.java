@@ -23,7 +23,7 @@ public class Labyrinthe extends PApplet{
 	private Personnage perso;
 	private String fichier;
 	
-	Labyrinthe(PApplet ap, String f) {
+	public Labyrinthe(PApplet ap, String f) {
 		dessin = ap;
 		fichier = f;
 	}

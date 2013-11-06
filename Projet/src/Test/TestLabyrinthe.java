@@ -1,5 +1,13 @@
 package Test;
 
-public class TestLabyrinthe {
+import org.junit.Test;
 
+import Labyrinthe.Labyrinthe;
+
+public class TestLabyrinthe {
+	
+	@Test
+	public void TestSupprimerPiege() {
+		
+	}
 }

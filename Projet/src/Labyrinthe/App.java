@@ -21,7 +21,7 @@ public class App extends PApplet {
 	
 	public void setup() {
 		etat = etatDuJeu.JEU;
-		numeroNiveau = 5;
+		numeroNiveau = 1;
 		filePath = "ressources/level"+numeroNiveau+".txt";
 		try {
 			scanner = new Scanner(new File(filePath));
