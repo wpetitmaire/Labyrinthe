@@ -16,18 +16,38 @@ import processing.core.PImage;
 @SuppressWarnings("serial")
 public class Labyrinthe extends PApplet{
 
-	ArrayList<Salle> al = new ArrayList<Salle>();
-	ArrayList<Monstre> listeMonstre = new ArrayList<Monstre>();
-	PApplet dessin;
-	Salle entree, sortie;
-	Personnage perso;
-	String fichier;
+	private ArrayList<Salle> al = new ArrayList<Salle>();
+	private ArrayList<Monstre> listeMonstre = new ArrayList<Monstre>();
+	private PApplet dessin;
+	private Salle entree, sortie;
+	private Personnage perso;
+	private String fichier;
 	
 	Labyrinthe(PApplet ap, String f) {
 		dessin = ap;
 		fichier = f;
 	}
 	
+	
+	public Personnage getPersonnage() {
+		return perso;
+	}
+	
+	public Salle getEntree() {
+		return entree;
+	}
+	
+	public Salle getSortie() {
+		return sortie;
+	}
+	
+	public ArrayList<Salle> getAl() {
+		return al;
+	}
+
+	public ArrayList<Monstre> getListeMonstre() {
+		return listeMonstre;
+	}
 	
 	public void load() {
 		Scanner scanner = null;

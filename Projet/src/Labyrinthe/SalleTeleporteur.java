@@ -22,13 +22,13 @@ public class SalleTeleporteur extends SallePiege{
 		if (actif) {
 			// On tire un nombre aléatoire
 			Random r = new Random();
-			int valeur = 1 + r.nextInt(l.al.size() - 1);
+			int valeur = 1 + r.nextInt(l.getAl().size() - 1);
 			
 			// On "sauvegarde" les propriétés de la salle piégée actuelle 
 			SalleTeleporteur sT = new SalleTeleporteur(this);
 			
 			// On téléporte le joueur dans une salle aléatoire
-			l.perso.setSalleCourante(l.trouverSalle(valeur));
+			l.getPersonnage().setSalleCourante(l.trouverSalle(valeur));
 			actif = false;
 			
 			// On remplace la salle Telepoteur par une salle normale

@@ -4,9 +4,29 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 public abstract class Ennemi {
-	Salle salleActuelle;
-	PApplet dessin;
+	private Salle salleActuelle;
+	private PApplet dessin;
 	
+	public Salle getSalleActuelle() {
+		return salleActuelle;
+	}
+
+
+	public void setSalleActuelle(Salle salleActuelle) {
+		this.salleActuelle = salleActuelle;
+	}
+
+
+	public PApplet getDessin() {
+		return dessin;
+	}
+
+
+	public void setDessin(PApplet dessin) {
+		this.dessin = dessin;
+	}
+
+
 	public abstract void effetCollision(Labyrinthe l);
 	 
 	

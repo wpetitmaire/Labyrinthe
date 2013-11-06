@@ -11,17 +11,17 @@ import processing.core.PImage;
 @SuppressWarnings("serial")
 public class App extends PApplet {
 	
-	etatDuJeu etat;
-	int windowWidth, windowHeight;
-	String filePath;
-	Scanner scanner;
-	PImage back, caseLab, imgPerso, vie, vie2, vie3, imgMonstre;
-	Labyrinthe lab;
-	int numeroNiveau;
+	private etatDuJeu etat;
+	private int windowWidth, windowHeight;
+	private String filePath;
+	private Scanner scanner;
+	private PImage back, caseLab, imgPerso, vie, vie2, vie3, imgMonstre;
+	private Labyrinthe lab;
+	private int numeroNiveau;
 	
 	public void setup() {
 		etat = etatDuJeu.JEU;
-		numeroNiveau = 1;
+		numeroNiveau = 5;
 		filePath = "ressources/level"+numeroNiveau+".txt";
 		try {
 			scanner = new Scanner(new File(filePath));
@@ -52,10 +52,10 @@ public class App extends PApplet {
 	
 	void redemarrage()
 	{
-		lab.al.clear();
+		lab.getAl().clear();
 		lab.load();
-		lab.perso.nbVies = Constantes.VIES_DEPART;
-		lab.perso.setSalleCourante(lab.entree);
+		lab.getPersonnage().nbVies = Constantes.VIES_DEPART;
+		lab.getPersonnage().setSalleCourante(lab.getEntree());
 	}
 	
 	void controleur() {
@@ -64,35 +64,35 @@ public class App extends PApplet {
 			// Appel de la fonction gérant les déplacements du personnage
 			if (keyPressed == true)
 				lab.keyPressed();
-			for (Monstre m : lab.listeMonstre)
+			for (Monstre m : lab.getListeMonstre())
 				m.deplacer(lab);
 			
 			// Si le personnage a atteint l'arrivée
-			if (lab.perso.getSalleCourante().x == lab.sortie.x && lab.perso.getSalleCourante().y == lab.sortie.y && numeroNiveau<= Constantes.NIVEAU_MAX)
+			if (lab.getPersonnage().getSalleCourante().x == lab.getSortie().x && lab.getPersonnage().getSalleCourante().y == lab.getSortie().y && numeroNiveau<= Constantes.NIVEAU_MAX)
 				etat = etatDuJeu.ARRIVEE;
 			
 			// Si la salle est piégée
-			if (lab.perso.salleCourante instanceof SallePiege) {
-				( (SallePiege) lab.perso.salleCourante).effet(lab);
+			if (lab.getPersonnage().salleCourante instanceof SallePiege) {
+				( (SallePiege) lab.getPersonnage().salleCourante).effet(lab);
 			}
 			
 			// Si le joueur rencontre un monstre
-			for (Monstre m : lab.listeMonstre) {
-				if (lab.perso.salleCourante.x == m.salleActuelle.x && lab.perso.salleCourante.y == m.salleActuelle.y)
+			for (Monstre m : lab.getListeMonstre()) {
+				if (lab.getPersonnage().salleCourante.x == m.getSalleActuelle().x && lab.getPersonnage().salleCourante.y == m.getSalleActuelle().y)
 					m.effetCollision(lab);
 			}
 			
 			// Si le joueur n'a plus de vie
-			if (lab.perso.nbVies <=0) {
+			if (lab.getPersonnage().nbVies <=0) {
 				redemarrage();
 				etat = etatDuJeu.GAME_OVER;
 			}
 			break ;
 			
 		case ARRIVEE:
-			if (touchePressee()) {
+			if (toucheEntreePressee()) {
 				// Passage au niveau suivant
-				lab.al.clear();
+				lab.getAl().clear();
 				
 				if (numeroNiveau >= Constantes.NIVEAU_MAX)
 					etat = etatDuJeu.TERMINE;
@@ -104,20 +104,20 @@ public class App extends PApplet {
 				filePath = "ressources/level"+numeroNiveau+".txt";
 				lab = new Labyrinthe(this, filePath);
 				lab.load();
-				lab.perso.nbVies = Constantes.VIES_DEPART;
-				lab.perso.setSalleCourante(lab.entree);
+				lab.getPersonnage().nbVies = Constantes.VIES_DEPART;
+				lab.getPersonnage().setSalleCourante(lab.getEntree());
 				
 				
 			}
 			break;
 			
 		case GAME_OVER :
-			if (touchePressee())
+			if (toucheEntreePressee())
 				etat = etatDuJeu.JEU;
 			break;
 			
 		case TERMINE :
-			if (touchePressee())
+			if (choixOui())
 				etat = etatDuJeu.JEU;
 			numeroNiveau = 1;
 			break;
@@ -140,11 +140,11 @@ public class App extends PApplet {
 			tint(255, 0, 0, 255);
 			textSize(15);
 			text("Vies : ", 10, 15);
-			if (lab.perso.nbVies>0)
+			if (lab.getPersonnage().nbVies>0)
 				image(vie, 15, 18, 20, 20);
-			if (lab.perso.nbVies>1)
+			if (lab.getPersonnage().nbVies>1)
 				image(vie2, 15+Constantes.DECALAGE_IMG_VIES, 18, 20, 20);
-			if (lab.perso.nbVies>2)
+			if (lab.getPersonnage().nbVies>2)
 				image(vie3, 15 + 2*Constantes.DECALAGE_IMG_VIES, 18, 20, 20);
 			break;
 			
@@ -166,9 +166,10 @@ public class App extends PApplet {
 			break;
 			
 		case TERMINE :
+			background(0);
 			tint(255, 255, 255);
 			textSize(40);
-			text("Vous avez reussi a sortir du labyrinthe !", windowWidth/2, windowHeight/3);
+			text("Vous avez reussi a sortir !", windowWidth/6, windowHeight/3);
 			text("Recommencer ?", windowWidth/6, windowHeight/2);
 			fill(255,255,255);
 			break;
@@ -177,8 +178,15 @@ public class App extends PApplet {
 		controleur();
 	}
 
-	boolean touchePressee() {
+	boolean toucheEntreePressee() {
 		if (keyPressed && key == ENTER)
+			return true;
+		
+		return false;	
+	}
+	
+	boolean choixOui() {
+		if (keyPressed && key == 'o')
 			return true;
 		
 		return false;	

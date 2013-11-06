@@ -13,8 +13,8 @@ public class Monstre extends Ennemi{
 	}
 	
 	public void effetCollision(Labyrinthe l) {
-		l.perso.nbVies = 0;
-		l.perso.setSalleCourante(l.entree);
+		l.getPersonnage().nbVies = 0;
+		l.getPersonnage().setSalleCourante(l.getEntree());
 		/*l.listeMonstre.clear();
 		
 		Random r = new Random();
@@ -28,39 +28,39 @@ public class Monstre extends Ennemi{
 		int valeur = 1 + r.nextInt(Constantes.PROBA_DEPLACEMENT - 1);
 		
 		if (valeur <= Constantes.DEPLACEMENT)
-			salleActuelle = salleAdjacente(l);
+			setSalleActuelle(salleAdjacente(l));
 	}
 	
 	public Salle salleAdjacente(Labyrinthe l) {
-		Salle nouvelleSalle = new Salle(this.salleActuelle);
+		Salle nouvelleSalle = new Salle(getSalleActuelle());
 		Random r = new Random();
 		int direction = 1 + r.nextInt(Constantes.MAX_DIRECTION - 1);
 		
 		switch(direction) {
 			case Constantes.BAS : 
-				for (Salle s : l.al) {
-					if (s.x == this.salleActuelle.x && s.y == this.salleActuelle.y +1)
+				for (Salle s : l.getAl()) {
+					if (s.x == getSalleActuelle().x && s.y == getSalleActuelle().y +1)
 						nouvelleSalle = new Salle (s);
 				}
 				break;
 				
 			case Constantes.HAUT :
-				for (Salle s : l.al) {
-					if (s.x == this.salleActuelle.x && s.y == this.salleActuelle.y -1)
+				for (Salle s : l.getAl()) {
+					if (s.x == getSalleActuelle().x && s.y == getSalleActuelle().y -1)
 						nouvelleSalle = new Salle (s);
 				}
 				break;
 			
 			case Constantes.DROITE :
-				for (Salle s : l.al) {
-					if (s.x == this.salleActuelle.x+1 && s.y == this.salleActuelle.y)
+				for (Salle s : l.getAl()) {
+					if (s.x == getSalleActuelle().x+1 && s.y == getSalleActuelle().y)
 						nouvelleSalle = new Salle (s);
 				}
 				break;
 				
 			default :
-				for (Salle s : l.al) {
-					if (s.x == this.salleActuelle.x-1 && s.y == this.salleActuelle.y)
+				for (Salle s : l.getAl()) {
+					if (s.x == getSalleActuelle().x-1 && s.y == getSalleActuelle().y)
 						nouvelleSalle = new Salle (s);
 				}
 				break;

@@ -18,7 +18,7 @@ public class SalleExplosive extends SallePiege{
 	@Override
 	public void effet(Labyrinthe l) {
 		if (actif) {
-			l.perso.nbVies--;
+			l.getPersonnage().nbVies--;
 			actif = false;
 			l.supprimerPiege(this);
 		}

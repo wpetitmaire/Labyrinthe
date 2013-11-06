@@ -18,7 +18,6 @@ public class Salle {
 		this.y = ord;
 		this.color = col;
 		dessin = ap;
-
 	}
 	
 	Salle() {
